@@ -5,6 +5,8 @@ import {
   testimonials, type Testimonial, type InsertTestimonial,
   contactMessages, type ContactMessage, type InsertContactMessage
 } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 // modify the interface with any CRUD methods
 // you might need
