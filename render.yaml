@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: farmley-app
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: farmley-db
+          property: connectionString
+
+databases:
+  - name: farmley-db
+    plan: free
+    databaseName: farmley
+    user: farmley_user
