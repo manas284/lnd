@@ -1,97 +1,68 @@
-# Farmley E-Commerce Website
+# Farmley E-commerce Website
 
-A modern e-commerce website for Farmley dry fruits with product showcase, company information, and contact functionality.
+An advanced e-commerce platform for Farmley dry fruits, delivering a modern and interactive shopping experience with comprehensive product exploration and user engagement features.
 
-## Features
-
-- Product browsing and filtering by categories
-- Product detail pages with descriptions and pricing
-- About page with company information
-- Contact form with validation
-- Responsive design for mobile, tablet, and desktop
-- PostgreSQL database for persistent data storage
-
-## Tech Stack
-
-### Frontend
-- React with TypeScript
-- Wouter for routing
-- TanStack Query for data fetching
-- Shadcn UI components
-- Tailwind CSS for styling
-- React Hook Form for form handling
-- Zod for validation
-
-### Backend
-- Express.js
+## Stack
+- TypeScript (React/Node.js)
 - PostgreSQL database
-- Drizzle ORM for database access
-- Vite for development and production builds
+- Drizzle ORM
+- Tailwind CSS
+- Responsive web design
 
-## Project Structure
+## Deployment Instructions
+
+### Deploy to Render
+
+#### Automatic Blueprint Deployment
+1. Go to [render.com](https://render.com/) and sign up/sign in
+2. Click "New" → "Blueprint"
+3. Connect your GitHub repo (manas284/lnd)
+4. Render will automatically detect the render.yaml file
+5. Click "Apply" and it will set up both your web service and PostgreSQL database automatically
+
+#### Manual Deployment
+1. **Create PostgreSQL Database**:
+   - Go to Render dashboard → "New" → "PostgreSQL"
+   - Name: `farmley-db`
+   - Database: `farmley`
+   - User: `farmley_user`
+   - Select "Free" plan
+   - After creation, go to "Connect" tab and copy Internal Database URL
+
+2. **Create Web Service**:
+   - Go to "New" → "Web Service"
+   - Connect GitHub repository (manas284/lnd)
+   - Name: `farmley-app`
+   - Build Command: `./render-build.sh`
+   - Start Command: `npm run start`
+   - Add Environment Variables:
+     - `DATABASE_URL`: (paste Internal Database URL from step 1)
+     - `NODE_ENV`: `production`
+
+3. **Initialize Database** (after deployment):
+   - Go to web service in Render dashboard
+   - Click on "Shell"
+   - Run: `npm run db:push`
+
+### Deploy to Vercel
+
+1. Go to [vercel.com](https://vercel.com/) and sign up/sign in
+2. Import your GitHub repository
+3. Configure:
+   - Build Command: `npm install --include=dev && npm run build`
+   - Output Directory: `dist/public`
+   - Install Command: `npm install`
+   - Development Command: `npm run dev`
+4. Add Environment Variables:
+   - `DATABASE_URL`: Your PostgreSQL connection string (you can use Neon database)
+   - `NODE_ENV`: `production`
+5. Deploy and visit your site
+
+## Running Locally
 
 ```
-├── client/               # Frontend React application
-│   ├── src/              # Source code
-│   │   ├── components/   # Reusable UI components
-│   │   ├── hooks/        # Custom React hooks
-│   │   ├── lib/          # Utility functions and API clients
-│   │   ├── pages/        # Page components
-│   │   ├── App.tsx       # Main application component
-│   │   └── main.tsx      # Entry point
-│   └── index.html        # HTML template
-├── server/               # Backend Express application
-│   ├── db.ts             # Database configuration
-│   ├── index.ts          # Server entry point
-│   ├── routes.ts         # API route definitions
-│   ├── storage.ts        # Data access layer
-│   └── vite.ts           # Vite development server integration
-└── shared/               # Shared code between frontend and backend
-    └── schema.ts         # Database schema and type definitions
+npm install
+npm run dev
 ```
 
-## Getting Started
-
-### Prerequisites
-- Node.js (v16 or higher)
-- PostgreSQL database
-
-### Installation
-
-1. Clone the repository
-   ```bash
-   git clone https://github.com/manas284/lnd.git
-   cd lnd
-   ```
-
-2. Install dependencies
-   ```bash
-   npm install
-   ```
-
-3. Set up environment variables
-   - Create a `.env` file in the root directory
-   - Add your PostgreSQL connection string:
-     ```
-     DATABASE_URL=postgresql://username:password@localhost:5432/farmley_db
-     ```
-
-4. Run database migrations
-   ```bash
-   npm run db:push
-   ```
-
-5. Start the development server
-   ```bash
-   npm run dev
-   ```
-
-6. Open your browser and navigate to `http://localhost:5000`
-
-## Deployment
-
-For deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md).
-
-## License
-
-This project is licensed under the MIT License.
+The application will start on http://localhost:5000.
